@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
 
 function App() {
+  const [message, setMessage] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+          <ol style={{ padding: 0, marginLeft: 15 }}>
+              <li>Holding "shift" + pressing "enter" will make a new line</li>
+              <li>Holding "alt" + pressing "enter" will make a new line</li>
+          </ol>
+          <textarea
+              style={{ height: 100 }}
+              placeholder="my textarea"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              onKeyDown={(event) => {
+                  if (event.key !== 'Enter' || event.shiftKey) {
+                      return;
+                  }
+
+                  if (event.altKey) {
+                      setMessage((message) => `${message}\n`);
+                      return;
+                  }
+              }}
+          />
+      </div>
   );
 }
 
